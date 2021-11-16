@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'spotify';
+  title: string ="SpotifyClone"
+  name: string = "Fran"
+  age: number =33
 }
+

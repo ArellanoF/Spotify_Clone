@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import("@modules/favorites/favorites.module").then(m => m.FavoritesModule)
   },
   {
-    path: 'hisory',
+    path: 'history',
     loadChildren: () => import("@modules/history/history.module").then(m => m.HistoryModule)
   }
 ];

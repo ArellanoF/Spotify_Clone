@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,14 +16,14 @@ export class SideBarComponent implements OnInit {
 
    customOptions: Array<any> =[]
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.mainMenu.defaultOptions = [
       {
         name: 'Home',
         icon: "uil uil-estate",
-        router: ["/"]
+        router: ["/", "auth"]
       },
       {
         name: 'Buscar',
@@ -32,13 +33,15 @@ export class SideBarComponent implements OnInit {
       {
         name: 'Tu bliblioteca',
         icon: "uil uil-chart",
-        router: ["/", "favourites"]
+        router: ["/", "favorites"],
+       
       }
     ]
     this.mainMenu.accessLink = [
       {
         name: 'Crear Lista',
-        icon: "uil-plus-square"
+        icon: "uil-plus-square",
+        router: ["/", "list"]
       },
       {
         name: 'Canciones que me gustan',

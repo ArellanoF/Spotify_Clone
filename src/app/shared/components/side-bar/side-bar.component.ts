@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TrackService } from '@modules/tracks/services/track.service';
 
 
 @Component({
@@ -67,6 +68,7 @@ export class SideBarComponent implements OnInit {
         router: ["/"]
       }
     ];
-
+    
+    
 }
 }

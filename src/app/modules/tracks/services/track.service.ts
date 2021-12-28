@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, mergeMap, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { TracksModule } from '../tracks.module';
 import { TrackModel } from '@core/models/tracks.models';
-import * as dataRaw  from '../../../data/tracks.json'
+
+
 
   
   
@@ -9,14 +13,34 @@ import * as dataRaw  from '../../../data/tracks.json'
   providedIn: 'root'
 })
 export class TrackService {
-
-  dataTracksTrending$: Observable<TrackModel[]> = of([])
-  dataTracksRandom$: Observable<any> = of([])
-
-  constructor() {
-    const { data }: any = (dataRaw as any).default;
-    this.dataTracksTrending$ = of(data)
-
-    this.dataTracksRandom$ = of(data)
+  private readonly URL = environment.api;
+  constructor(private httpClient: HttpClient) {
   }
+
+  private skipById(listTracks: TrackModel[], id: number): Promise<TrackModel[]>{
+    return new Promise<TrackModel[]>((resolve, reject) => {
+      const listTmp = listTracks.filter(a => a._id !=id)
+    resolve(listTmp)
+  })
+}
+
+  getAllTracks$(): Observable<any>{
+    return this.httpClient.get(`${this.URL}/tracks`)
+      .pipe(
+        map(({ data }: any) => {
+        return data;
+      })
+    )
+  }
+  getAllRandom$(): Observable<any>{
+    return this.httpClient.get(`${this.URL}/tracks`)
+      .pipe(
+       mergeMap(({ data }: any) => this.skipById(data,1)),
+      
+        // map((dataRevertida) => {
+        //   return dataRevertida.filter((track: TrackModel) => track._id != 1)
+          
+        // })
+    )
+}
 }
